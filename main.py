@@ -1,5 +1,6 @@
 import pygame as pg
-
+from modules.states import States
+from ui.register_menu import  draw_register_menu
 import sys
 
 pg.init()
@@ -13,7 +14,7 @@ fpslock = 60
 
 clock = pg.time.Clock()
 
-
+current_state = States.REGISTER_MENU
 while True:
     clock.tick(fpslock)
     for event in pg.event.get():
@@ -21,8 +22,13 @@ while True:
             pg.quit()
             sys.exit()
 
-    ROOT.fill((255,255,255))
+    if current_state == States.REGISTER_MENU:
+        draw_register_menu(ROOT)
 
-    pg.draw.rect(ROOT, (255,0,0), (WIDTH//2, HEIGHT//2,100, 100))
+    if current_state == States.TEST:
+        ...
 
-    pg.display.update()
+    if current_state == States.FINISHED_TEST:
+        ...
+
+    
