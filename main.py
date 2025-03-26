@@ -1,13 +1,13 @@
 import pygame as pg
 from modules.states import States
-from ui.register_menu import  draw_register_menu
+from ui.register_menu import draw_register_menu
 import sys
 
 pg.init()
 
-WIDTH, HEIGHT = 600, 600
+WIDTH, HEIGHT = 600, 800
 
-ROOT = pg.display.set_mode((WIDTH,HEIGHT))
+ROOT = pg.display.set_mode((WIDTH, HEIGHT))
 pg.display.set_caption("TEST")
 
 fpslock = 60
@@ -30,5 +30,3 @@ while True:
 
     if current_state == States.FINISHED_TEST:
         ...
-
-    

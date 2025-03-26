@@ -45,11 +45,13 @@ class Button:
     def is_pressed(self, event):
         if event.type == pg.MOUSEBUTTONDOWN:
             if event.button == 1 and self.rect.collidepoint(event.pos):
+                # print(self, "pressed")
                 return True
         return False
 
     def is_clicked(self, event):
         if event.type == pg.MOUSEBUTTONUP:
             if event.button == 1 and self.rect.collidepoint(event.pos):
+                # print(self, "clicked")
                 return True
         return False

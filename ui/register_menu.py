@@ -1,7 +1,18 @@
 from modules.button import Button
 from modules.input import InputLabel
+from modules.states import States
 import pygame as pg
 import sys
+
+
+def show_error_message(root: pg.Surface, message: str):
+    font = pg.font.SysFont("comicsans", 30)
+    rect = pg.Rect(150, 100, 300, 200)
+    pg.draw.rect(root, (255, 0, 0), rect)
+
+    # Render the message text
+    text = font.render(message, True, (255, 255, 255))
+    root.blit(text, rect)
 
 
 def draw_register_menu(root: pg.Surface):
@@ -9,7 +20,7 @@ def draw_register_menu(root: pg.Surface):
     hover_green = (150, 166, 56)
     clicked_green = (160, 176, 69)
     button = Button(
-        pg.Rect(50, 50, 200, 50),
+        pg.Rect(200, 250, 200, 50),
         root,
         "Start Test",
         main_green,
@@ -17,12 +28,14 @@ def draw_register_menu(root: pg.Surface):
         clicked_green,
     )
     name_label = InputLabel(
-        pg.Rect(100, 100, 100, 100),
+        pg.Rect(50, 100, 500, 100),
         root,
-        main_green,
         clicked_green,
-        (0, 0, 0),
+        main_green,
+        (255, 255, 255),
         "enter your name",
+        30,
+        30,
     )
 
     while True:
@@ -30,11 +43,14 @@ def draw_register_menu(root: pg.Surface):
             if event.type == pg.QUIT:
                 pg.quit()
                 sys.exit()
-            if button.is_pressed(event):
-                print("pressed")
 
-            if button.is_clicked(event):
-                print("clicked")
+            name_label.handle_input(event)
+            if name_label.text != "" and button.is_clicked(event):
+                break
+
+            elif name_label.text == "" and button.is_clicked(event):
+                print("message")
+                show_error_message(root, "Enter Name !")
 
         root.fill((22, 23, 14))
         button.draw()
