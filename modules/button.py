@@ -55,3 +55,7 @@ class Button:
                 # print(self, "clicked")
                 return True
         return False
+
+    def onclick(self, event, action, action_value):
+        if self.is_clicked(event):
+            action(action_value)

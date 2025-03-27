@@ -1,6 +1,6 @@
 import pygame as pg
 from modules.states import States
-from ui.register_menu import draw_register_menu
+from ui.register_menu import draw_register_menu, switch_current_state
 import sys
 
 pg.init()
@@ -24,6 +24,7 @@ while True:
 
     if current_state == States.REGISTER_MENU:
         draw_register_menu(ROOT)
+        switch_current_state(current_state, States.TEST)
 
     if current_state == States.TEST:
         ...

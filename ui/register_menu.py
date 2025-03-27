@@ -15,6 +15,14 @@ def show_error_message(root: pg.Surface, message: str):
     root.blit(text, rect)
 
 
+def finish_current_state(running: bool): ...
+
+
+def switch_current_state(current_state: States, new_state: States) -> States:
+    current_state = new_state
+    return current_state
+
+
 def draw_register_menu(root: pg.Surface):
     main_green = (116, 128, 43)
     hover_green = (150, 166, 56)
@@ -37,8 +45,8 @@ def draw_register_menu(root: pg.Surface):
         30,
         30,
     )
-
-    while True:
+    running = True
+    while running:
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 pg.quit()
@@ -51,6 +59,8 @@ def draw_register_menu(root: pg.Surface):
             elif name_label.text == "" and button.is_clicked(event):
                 print("message")
                 show_error_message(root, "Enter Name !")
+
+            button.onclick(event, finish_current_state, running)
 
         root.fill((22, 23, 14))
         button.draw()
