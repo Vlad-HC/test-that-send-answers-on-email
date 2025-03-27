@@ -26,7 +26,6 @@ class Button:
         self.clicked_color = clicked_color
         self.font_size = font_size if font_size is not None else self.height // 2
         self.FONT = pg.font.SysFont("comicsans", self.font_size)
-
     def draw(self):
         mousePos = pg.mouse.get_pos()
 
