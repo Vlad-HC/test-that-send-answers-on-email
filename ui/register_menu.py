@@ -1,32 +1,17 @@
 from modules.button import Button
-from modules.input import InputLabel
+from modules.state_handler import State_handler
+from modules.test_handler import Test_handler
 from modules.states import States
+from modules.input import InputLabel
+from modules.colors import *
 import pygame as pg
 import sys
 
 
-def show_error_message(root: pg.Surface, message: str):
-    font = pg.font.SysFont("comicsans", 30)
-    rect = pg.Rect(150, 100, 300, 200)
-    pg.draw.rect(root, (255, 0, 0), rect)
+def draw_register_menu(
+    root: pg.Surface, state_handler: State_handler, test_handler: Test_handler
+):
 
-    # Render the message text
-    text = font.render(message, True, (255, 255, 255))
-    root.blit(text, rect)
-
-
-def finish_current_state(running: bool): ...
-
-
-def switch_current_state(current_state: States, new_state: States) -> States:
-    current_state = new_state
-    return current_state
-
-
-def draw_register_menu(root: pg.Surface):
-    main_green = (116, 128, 43)
-    hover_green = (150, 166, 56)
-    clicked_green = (160, 176, 69)
     button = Button(
         pg.Rect(200, 250, 200, 50),
         root,
@@ -35,18 +20,17 @@ def draw_register_menu(root: pg.Surface):
         hover_green,
         clicked_green,
     )
-    name_label = InputLabel(
+    input_label = InputLabel(
         pg.Rect(50, 100, 500, 100),
         root,
         clicked_green,
         main_green,
         (255, 255, 255),
-        "enter your name",
+        "enter your name surname",
         30,
         30,
     )
     running = True
-    name_label.placeholder = "kringe"
     while running:
 
         for event in pg.event.get():
@@ -54,17 +38,16 @@ def draw_register_menu(root: pg.Surface):
                 pg.quit()
                 sys.exit()
 
-            name_label.handle_input(event)
-            if name_label.text != "" and button.is_clicked(event):
-                break
+            input_label.handle_input(event)
+            if input_label.text != "" and button.is_clicked(event):
+                running = False
 
-            elif name_label.text == "" and button.is_clicked(event):
-                print("message")
-                show_error_message(root, "Enter Name !")
+            elif input_label.text == "" and button.is_clicked(event):
+                input_label.invalid_input_error()
 
-            button.onclick(event, finish_current_state, running)
-
-        root.fill((22, 23, 14))
+        root.fill(dark_green_background)
         button.draw()
-        name_label.draw()
+        input_label.draw()
         pg.display.update()
+    test_handler.student_name_surname = input_label.get_text()
+    state_handler.change_state(States.TEST)
