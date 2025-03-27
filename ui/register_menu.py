@@ -37,6 +37,7 @@ def draw_register_menu(root: pg.Surface):
         30,
         30,
     )
+    name_label.placeholder = "kringe"
 
     while True:
         for event in pg.event.get():

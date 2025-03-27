@@ -4,6 +4,8 @@ import string
 
 
 class InputLabel:
+    cursor_pos: int
+
     def __init__(
         self,
         rect: pg.Rect,
@@ -31,49 +33,64 @@ class InputLabel:
         self.showing_placeholder = True
         self.maxchars = maxchars
         self.text = ""
+        self.cursor_pos = 0
+        InputLabel.cursor_bar = pg.cursors.compile(pg.cursors.textmarker_strings)
+
+    def get_display_text(self):
+        return self.placeholder if self.showing_placeholder else self.text
 
     def draw(self):
         color = self.active_box_color if self.active else self.inactive_box_color
 
-        display_text = self.placeholder if self.showing_placeholder else self.text
         text_color = (115, 115, 115) if self.showing_placeholder else self.font_color
 
         pg.draw.rect(self.root, color, self.rect, 10)
-
-        text_surface = self.FONT.render(display_text, True, text_color)
+    
+        text_surface = self.FONT.render(self.get_display_text(), True, text_color)
         text_rect = text_surface.get_rect(
             center=(self.x + self.width // 2, self.y + self.height // 2)
         )
+        
         self.root.blit(text_surface, text_rect)
+
+        if(self.active):
+                
+            t=self.get_display_text()[:self.cursor_pos]
+            txt = self.FONT.render(t, True, (115, 115, 115) if self.showing_placeholder else self.font_color)
+            
+            pg.draw.rect(self.root, (255,255,255), pg.Rect(text_rect.x + txt.get_width(), text_rect.y, 3, self.FONT.get_linesize()))
 
     def handle_input(self, event):
         pg.key.set_repeat(400, 50)
         valid_chars = string.ascii_letters + string.digits + string.punctuation + " "
 
-        if event.type == pg.MOUSEBUTTONUP:
-            if event.button == 1 and self.rect.collidepoint(event.pos):
+        if event.type == pg.MOUSEBUTTONUP and event.button == 1:
+            if self.rect.collidepoint(event.pos):
                 self.active = True
-                # print(self, self.active)
                 if self.showing_placeholder:
                     self.text = ""
                     self.showing_placeholder = False
-            if event.button == 1 and not self.rect.collidepoint(event.pos):
+            else:
                 self.active = False
-                # print(self, self.active)
 
         if self.active and event.type == pg.KEYDOWN:
-
             # LCTRL + BACKSPACE
             if event.key == pg.K_BACKSPACE and (pg.key.get_mods() & pg.KMOD_CTRL):
                 if len(self.text) != 0:
                     words = str.split(self.text, " ")
-                    words.pop()
+                    self.cursor_pos -= len(words.pop()) + 1
                     self.text = " ".join(words)
 
             # BACKSPACE
             elif event.key == pg.K_BACKSPACE:
-                self.text = self.text[:-1]
+                if len(self.text) != 0 and self.cursor_pos > 0:
+                    self.text = self.text[:self.cursor_pos - 1] + self.text[self.cursor_pos::]
+                    self.cursor_pos -= 1
 
+            elif event.key == pg.K_DELETE:
+                if len(self.text) != 0 and self.cursor_pos < len(self.text):
+                    self.text = self.text[:self.cursor_pos] + self.text[self.cursor_pos + 1::]
+            
             # TAB
             elif event.key == pg.K_TAB:
                 words = str.split(self.text, " ")
@@ -84,10 +101,18 @@ class InputLabel:
             elif event.key == pg.K_ESCAPE:
                 self.active = False
 
+            elif event.key == pg.K_LEFT:
+                if(self.cursor_pos > 0):
+                   self.cursor_pos -= 1
+            elif event.key == pg.K_RIGHT:            
+                if(self.cursor_pos < len(self.text)):
+                    self.cursor_pos += 1
+
             # all keys except keys above
             elif len(self.text) + 1 <= self.maxchars:
-                if event.unicode in valid_chars:
-                    self.text += event.unicode
+                if len(event.unicode) != 0 and event.unicode in valid_chars:
+                    self.text = self.text[:self.cursor_pos] + event.unicode + self.text[self.cursor_pos::]
+                    self.cursor_pos += 1
 
         elif not self.active and self.text == "":
             self.showing_placeholder = True
