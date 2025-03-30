@@ -2,7 +2,7 @@ from modules.button import Button
 from modules.state_handler import State_handler
 from modules.test_handler import Test_handler
 from modules.states import States
-from modules.input import InputLabel
+from modules.input import Inputbox
 from modules.colors import *
 import pygame as pg
 import sys
@@ -20,7 +20,7 @@ def draw_register_menu(
         hover_green,
         clicked_green,
     )
-    input_label = InputLabel(
+    input_label = Inputbox(
         pg.Rect(50, 100, 500, 100),
         root,
         clicked_green,

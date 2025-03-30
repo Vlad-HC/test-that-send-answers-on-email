@@ -3,7 +3,7 @@ from pygame import Rect, Surface
 import string
 
 
-class InputLabel:
+class Inputbox:
     cursor_pos: int
 
     def __init__(
@@ -35,7 +35,7 @@ class InputLabel:
         self.maxchars = maxchars
         self.text = ""
         self.cursor_pos = 0
-        InputLabel.cursor_bar = pg.cursors.compile(pg.cursors.textmarker_strings)
+        Inputbox.cursor_bar = pg.cursors.compile(pg.cursors.textmarker_strings)
 
     def get_display_text(self):
         return self.placeholder if self.showing_placeholder else self.text
