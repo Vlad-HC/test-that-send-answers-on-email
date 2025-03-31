@@ -2,7 +2,8 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Run Python File",
+            "name": "Debug Python File",
+            // "name": "Run Python File",
             "type": "python",
             "request": "launch",
             "program": "main.py",  

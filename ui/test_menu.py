@@ -13,8 +13,8 @@ def draw_test_menu(
     root: pg.Surface, state_handler: State_handler, test_handler: Test_handler
 ):
     textbox = Textbox(
-        "How many chromosomes do you have?",
-        (0, 0),
+        "How many chromosomes do you have? How many chromosomes do you have? How many chromosomes do you have? ",
+        (0, 20),
         max_width=500,
         font_color=(255, 255, 255),
         backgroud_color=clicked_green,
