@@ -1,6 +1,5 @@
 import pygame as pg
 from pygame import Rect, Surface
-import string
 
 
 class Textbox:
@@ -32,6 +31,9 @@ class Textbox:
         self.rect.x = pos[0]
         self.rect.y = pos[1]
         self.height = self.rect.height
+        self.text_surface = None
+        self.lines = self.wrap_text()
+        self.rect.height = self.height + self.line_space * len(self.lines)
 
     def wrap_text(self):
         words = self.text.split()
@@ -60,15 +62,13 @@ class Textbox:
 
         self.rect.centerx = root.get_width() // 2
 
-        lines = self.wrap_text()
-        for i, line in enumerate(lines):
-            text_surface = self.FONT.render(line, True, self.font_color)
+        for i, line in enumerate(self.lines):
+            self.text_surface = self.FONT.render(line, True, self.font_color)
 
             root.blit(
-                text_surface,
+                self.text_surface,
                 (
                     self.rect.x + (self.text_padding // 2),
                     self.rect.y + (self.text_padding // 2) + i * self.line_space,
                 ),
             )
-        self.rect.height = self.height + self.line_space * i
