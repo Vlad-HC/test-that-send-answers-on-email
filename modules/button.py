@@ -1,17 +1,17 @@
 import pygame as pg
 from pygame import Rect, Surface
+from modules.UIElement import UIElement
 
 
-class Button:
+class Button(UIElement):
 
     def __init__(
         self,
         rect: Rect,
         surface: Surface,
         text: str,
-        color: tuple[int, int, int],
+        main_color: tuple[int, int, int],
         hover_color: tuple[int, int, int],
-        clicked_color: tuple[int, int, int],
         font_size=None,
     ):
         self.rect = rect
@@ -21,20 +21,20 @@ class Button:
         self.height = self.rect.size[1]
         self.root = surface
         self.text = text
-        self.color = color
+        self.background_color = main_color
+        self.main_color = main_color
         self.hover_color = hover_color
-        self.clicked_color = clicked_color
         self.font_size = font_size if font_size is not None else self.height // 2
         self.FONT = pg.font.SysFont("comicsans", self.font_size)
 
     def draw(self):
-        mousePos = pg.mouse.get_pos()
-
-        if self.rect.collidepoint(mousePos):
-            pg.draw.rect(self.root, self.hover_color, self.rect)
+        if self.is_hovered(self.rect):
+            self.background_color = self.hover_color
 
         else:
-            pg.draw.rect(self.root, self.color, self.rect)
+            self.background_color = self.main_color
+
+        pg.draw.rect(self.root, self.background_color, self.rect)
 
         text_surface = self.FONT.render(self.text, True, (0, 0, 0))
         text_rect = text_surface.get_rect(
@@ -42,20 +42,6 @@ class Button:
         )
         self.root.blit(text_surface, text_rect)
 
-    def is_pressed(self, event):
-        if event.type == pg.MOUSEBUTTONDOWN:
-            if event.button == 1 and self.rect.collidepoint(event.pos):
-                # print(self, "pressed")
-                return True
-        return False
-
-    def is_clicked(self, event):
-        if event.type == pg.MOUSEBUTTONUP:
-            if event.button == 1 and self.rect.collidepoint(event.pos):
-                # print(self, "clicked")
-                return True
-        return False
-
-    def onclick(self, event, action, action_value):
-        if self.is_clicked(event):
+    def onclick(self, action, action_value):
+        if self.clicked:
             action(action_value)

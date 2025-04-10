@@ -1,9 +1,10 @@
 import pygame as pg
 from modules.textbox import Textbox
+from modules.UIElement import UIElement
 from modules.colors import *
 
 
-class Answer:
+class Answer(UIElement):
     def __init__(
         self,
         answer_str: str,
@@ -28,16 +29,12 @@ class Answer:
             self.textbox.text = f"{self.number}. {self.textbox.text}"
             print(self.textbox.text)
 
-    def is_clicked(self, event):
-        if event.type == pg.MOUSEBUTTONUP:
-            if event.button == 1 and self.rect.collidepoint(event.pos):
-                return True
-        return False
-
-    def draw(self, root: pg.Surface):
-        self.background_color = light_green_clicked if self.active else hover_green
-        self.textbox.background_color = self.background_color
-        self.textbox.draw(root)
-
     def __str__(self):
         return f"{self.number}. {self.answer_str} \n {self.active}"
+
+    def draw(self, root: pg.Surface):
+        self.background_color = (
+            light_green_clicked if self.active else self.background_color
+        )
+        self.textbox.background_color = self.background_color
+        self.textbox.draw(root)

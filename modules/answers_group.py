@@ -50,7 +50,8 @@ class Answers_group:
 
     def handle_answers(self, event):
         for answer in self.answers:
-            if answer.is_clicked(event):
+            answer.handle(event, answer.rect)
+            if answer.clicked:
                 if self.last_active_answer != None and self.multiple_answers != True:
                     if self.last_active_answer != answer:
                         self.answers[
@@ -58,6 +59,11 @@ class Answers_group:
                         ].active = False
                 answer.active = not answer.active
                 self.last_active_answer = answer
+            if answer.hovered:
+                answer.background_color = white
+
+            else:
+                answer.background_color = hover_green
 
     def draw(self, root: pg.Surface):
         for answer in self.answers:

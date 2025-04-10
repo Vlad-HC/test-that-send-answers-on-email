@@ -18,7 +18,6 @@ def draw_register_menu(
         "Start Test",
         main_green,
         hover_green,
-        clicked_green,
     )
     input_label = Inputbox(
         pg.Rect(50, 100, 500, 100),
@@ -38,11 +37,12 @@ def draw_register_menu(
                 pg.quit()
                 sys.exit()
 
+            button.handle(event, button.rect)
             input_label.handle_input(event)
-            if input_label.text != "" and button.is_clicked(event):
+            if input_label.text != "" and button.clicked:
                 running = False
 
-            elif input_label.text == "" and button.is_clicked(event):
+            elif input_label.text == "" and button.clicked:
                 input_label.invalid_input_error()
 
         root.fill(dark_green_background)
