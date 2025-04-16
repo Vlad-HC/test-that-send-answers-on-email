@@ -1,25 +1,24 @@
 {
-    "questions": [
-        {
-            "question": "What is the capital of France?",
-            "options": ["Berlin", "Madrid", "Paris", "Rome"],
-            "image_link":"link"
-        },
-        {
-            "question": "What is the capital of France?",
-            "options": ["Berlin", "Madrid", "Paris", "Rome"],
-            "image_link":"link"
-        },
-        {
-            "question": "What is the capital of France?",
-            "options": ["Berlin", "Madrid", "Paris", "Rome"],
-            "image_link":"link"
-        },
-        {
-            "question": "What is the capital of France?",
-            "options": ["Berlin", "Madrid", "Paris", "Rome"],
-            "image_link":"link"
-        }
-       
-    ]
+  "questions": [
+    {
+      "question": "What is the capital of France?",
+      "options": ["Berlin", "Madrid", "Paris", "Rome"]
+    },
+    {
+      "question": "What is the capital of Germany?",
+      "options": ["Berlin", "Madrid", "Paris", "Rome"]
+    },
+    {
+      "question": "What is the capital of Spain?",
+      "options": ["Berlin", "Madrid", "Paris", "Rome"]
+    },
+    {
+      "question": "What is the capital of Italy?",
+      "options": ["Berlin", "Madrid", "Paris", "Rome"]
+    },
+    {
+      "question": "Name based country:",
+      "options": null
+    }
+  ]
 }
