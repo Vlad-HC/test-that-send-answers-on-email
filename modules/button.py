@@ -14,6 +14,7 @@ class Button(UIElement):
         hover_color: tuple[int, int, int],
         font_size=None,
     ):
+        super().__init__()
         self.rect = rect
         self.x = self.rect.x
         self.y = self.rect.y

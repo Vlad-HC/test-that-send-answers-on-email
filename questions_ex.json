@@ -17,7 +17,7 @@
       "options": ["Berlin", "Madrid", "Paris", "Rome"]
     },
     {
-      "question": "Name based country:",
+      "question": "Name country that starts with letter 'A':",
       "options": null
     }
   ]

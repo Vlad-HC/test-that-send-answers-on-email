@@ -1,10 +1,12 @@
 import pygame as pg
 from pygame import Rect, Surface
+from modules.UIElement import UIElement
 
 
-class Textbox:
+class Textbox(UIElement):
     def __init__(
         self,
+        root: pg.Surface,
         text: str,
         pos: tuple[int, int],
         max_width: int,
@@ -15,6 +17,8 @@ class Textbox:
         line_space: int = 30,
         border_r: int = 0,
     ):
+        super().__init__()
+        self.root = root
         self.line_space = line_space
         self.text = text
         self.border_r = border_r
@@ -53,19 +57,22 @@ class Textbox:
         lines.append(current_line.strip())
         return lines
 
-    def draw(self, root: pg.Surface):
+    def draw(self):
 
         if self.background_color != None:
             self.background = pg.draw.rect(
-                root, self.background_color, self.rect, border_radius=self.border_r
+                self.root,
+                self.background_color,
+                self.rect,
+                border_radius=self.border_r,
             )
 
-        self.rect.centerx = root.get_width() // 2
+        self.rect.centerx = self.root.get_width() // 2
 
         for i, line in enumerate(self.lines):
             self.text_surface = self.FONT.render(line, True, self.font_color)
 
-            root.blit(
+            self.root.blit(
                 self.text_surface,
                 (
                     self.rect.x + (self.text_padding // 2),

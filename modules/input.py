@@ -17,6 +17,7 @@ class Inputbox:
         font_size=None,
         maxchars=999,
     ):
+        super().__init__()
         self.root = surface
         self.rect = rect
         self.x = self.rect.x
@@ -43,9 +44,7 @@ class Inputbox:
     def draw(self):
         color = self.active_box_color if self.active else self.inactive_box_color
 
-        text_color = (
-            self.placeholder_font_color if self.showing_placeholder else self.font_color
-        )
+        text_color = self.placeholder_font_color if self.showing_placeholder else self.font_color
 
         pg.draw.rect(self.root, color, self.rect, 5)
 
@@ -69,11 +68,7 @@ class Inputbox:
             txt = self.FONT.render(
                 t,
                 True,
-                (
-                    self.placeholder_font_color
-                    if self.showing_placeholder
-                    else self.font_color
-                ),
+                (self.placeholder_font_color if self.showing_placeholder else self.font_color),
             )
 
             pg.draw.rect(
@@ -87,7 +82,7 @@ class Inputbox:
                 ),
             )
 
-    def handle_input(self, event):
+    def handle(self, event):
         pg.key.set_repeat(400, 50)
         valid_chars = string.ascii_letters + string.digits + string.punctuation + " "
 
@@ -112,18 +107,12 @@ class Inputbox:
             # BACKSPACE
             elif event.key == pg.K_BACKSPACE:
                 if len(self.text) != 0 and self.cursor_pos > 0:
-                    self.text = (
-                        self.text[: self.cursor_pos - 1]
-                        + self.text[self.cursor_pos : :]
-                    )
+                    self.text = self.text[: self.cursor_pos - 1] + self.text[self.cursor_pos : :]
                     self.cursor_pos -= 1
 
             elif event.key == pg.K_DELETE:
                 if len(self.text) != 0 and self.cursor_pos < len(self.text):
-                    self.text = (
-                        self.text[: self.cursor_pos]
-                        + self.text[self.cursor_pos + 1 : :]
-                    )
+                    self.text = self.text[: self.cursor_pos] + self.text[self.cursor_pos + 1 : :]
 
             # TAB
             elif event.key == pg.K_TAB:
@@ -155,7 +144,7 @@ class Inputbox:
         elif not self.active and self.text == "":
             self.showing_placeholder = True
 
-    def get_text(self):
+    def get(self):
         return self.text
 
     def invalid_input_error(self):

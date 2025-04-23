@@ -1,7 +1,48 @@
+from modules.load_system import load
+
+
 class Test_handler:
     def __init__(self):
         self.student_name_surname: str = None
-        self.answers = []
-        #self.answers = [ question:answer:time ]
+        self.ind = 0
+        self.answers = {}
+        self.questions, self.options = load()
+        self.generate_ans()
+        # self.answers = [ question:answer:time ]
         self.spended_time = 0
         self.unfocused_window_count = 0
+
+    def generate_ans(self):
+        for i in self.questions:
+            self.answers[f"{i}"] = [None, None]
+
+    # def set_previous_answer(self, answer_ui):
+    #     if self.options[self.ind] == None:
+
+    #     if self.answers[self.questions[self.ind]][0] != None:
+
+    def save_answer(self, answer: str, time: int):
+        # setaty active dla answera shob ne perezapysuwalos krywo
+        question = self.questions[self.ind]
+        if self.answers[f"{question}"][1] != 0 and self.answers[f"{question}"][1] != None:
+            self.answers[f"{question}"] = [
+                answer,
+                time + self.answers[f"{question}"][1],
+            ]
+        else:
+            self.answers[f"{question}"] = [answer, time]
+
+        for i in self.answers:
+            print(f"{i} : {self.answers[i]}")
+
+    def parse_time(self, time: int):
+        miliseconds = list(str(time))
+        seconds = []
+        while len(miliseconds) != 3:
+            seconds.append(miliseconds.pop(0))
+        if len(seconds) != 0:
+            parsed_time = f'{"".join(seconds)}s {"".join(miliseconds)}ms'
+        else:
+            parsed_time = f'0s {"".join(miliseconds)}ms'
+
+        return parsed_time

@@ -35,4 +35,5 @@ while True:
         draw_test_menu(ROOT, state_handler_instance, test_handler_instance)
 
     if current_state == States.FINISHED_TEST:
-        ...
+        print("Test finished", "\n", test_handler_instance.answers, "\n", "YEY")
+        pg.quit()

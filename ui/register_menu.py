@@ -8,9 +8,7 @@ import pygame as pg
 import sys
 
 
-def draw_register_menu(
-    root: pg.Surface, state_handler: State_handler, test_handler: Test_handler
-):
+def draw_register_menu(root: pg.Surface, state_handler: State_handler, test_handler: Test_handler):
 
     button = Button(
         pg.Rect(200, 250, 200, 50),
@@ -19,7 +17,7 @@ def draw_register_menu(
         main_green,
         hover_green,
     )
-    input_label = Inputbox(
+    name_input = Inputbox(
         pg.Rect(50, 100, 500, 100),
         root,
         clicked_green,
@@ -38,16 +36,16 @@ def draw_register_menu(
                 sys.exit()
 
             button.handle(event, button.rect)
-            input_label.handle_input(event)
-            if input_label.text != "" and button.clicked:
+            name_input.handle(event)
+            if name_input.text != "" and button.clicked:
                 running = False
 
-            elif input_label.text == "" and button.clicked:
-                input_label.invalid_input_error()
+            elif name_input.text == "" and button.clicked:
+                name_input.invalid_input_error()
 
         root.fill(dark_green_background)
         button.draw()
-        input_label.draw()
+        name_input.draw()
         pg.display.update()
-    test_handler.student_name_surname = input_label.get_text()
+    test_handler.student_name_surname = name_input.get()
     state_handler.change_state(States.TEST)
