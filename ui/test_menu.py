@@ -2,6 +2,7 @@ from modules.button import Button
 from modules.input import Inputbox
 from modules.load_system import load
 from modules.textbox import Textbox
+from modules.confirmation import ConfirmationDialog
 from modules.state_handler import State_handler
 from modules.test_handler import Test_handler
 from modules.answers_group import Answers_group
@@ -64,6 +65,7 @@ def draw_test_menu(
         15,
         50,
     )
+    conf_dialog = ConfirmationDialog(pg.Rect(100, 300, 400, 300), root, "You wanna finish test?")
 
     if answers != None:
         UIElement.remove(answer_input)

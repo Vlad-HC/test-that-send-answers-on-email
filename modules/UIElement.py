@@ -9,7 +9,7 @@ class UIElement:
         self.hovered = False
         self.clicked = False
         self.pressed = False
-        UIElement.instances.append(self)
+        UIElement.add(self)
 
     def is_clicked(self, event, rect: pg.Rect):
         if event.type == pg.MOUSEBUTTONUP:

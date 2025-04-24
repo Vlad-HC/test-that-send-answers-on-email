@@ -1,10 +1,7 @@
 import pygame as pg
-from modules.textbox import (
-    Textbox,
-)
-from modules.UIElement import (
-    UIElement,
-)
+from modules.textbox import Textbox
+from modules.UIElement import UIElement
+
 from modules.colors import *
 
 

@@ -101,7 +101,7 @@ class Inputbox:
             if event.key == pg.K_BACKSPACE and (pg.key.get_mods() & pg.KMOD_CTRL):
                 if len(self.text) != 0:
                     words = str.split(self.text, " ")
-                    self.cursor_pos -= len(words.pop()) + 1
+                    self.cursor_pos -= len(words.pop()) +( len(words) != 0)
                     self.text = " ".join(words)
 
             # BACKSPACE
