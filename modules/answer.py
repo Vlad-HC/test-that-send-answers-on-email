@@ -47,4 +47,4 @@ class Answer(UIElement):
     ):
         self.background_color = light_green_clicked if self.active else self.background_color
         self.textbox.background_color = self.background_color
-        self.textbox.draw()
+        # self.textbox.draw()

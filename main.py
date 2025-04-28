@@ -1,10 +1,12 @@
 import sys
 import pygame as pg
 from modules.states import States
+from modules.confirmation import ConfirmationDialog
 from modules.state_handler import State_handler
 from modules.test_handler import Test_handler
 from ui.register_menu import draw_register_menu
 from ui.test_menu import draw_test_menu
+from ui.confirmation_menu import draw_confirmation
 
 pg.init()
 state_handler_instance = State_handler(States.REGISTER_MENU)
@@ -33,6 +35,9 @@ while True:
 
     if current_state == States.TEST:
         draw_test_menu(ROOT, state_handler_instance, test_handler_instance)
+
+    if current_state == States.CONFIRMATION:
+        draw_confirmation(ROOT, state_handler_instance, test_handler_instance)
 
     if current_state == States.FINISHED_TEST:
         print("Test finished", "\n", test_handler_instance.answers, "\n", "YEY")

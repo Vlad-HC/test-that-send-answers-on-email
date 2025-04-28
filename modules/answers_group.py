@@ -64,11 +64,10 @@ class Answers_group(UIElement):
                 answer.background_color = hover_green
 
     def get(self):
-        lst = []
-        for i in self.answers:
-            if i.active:
-                lst.append(i.textbox.text)
+        lst = [i.textbox.text for i in self.answers if i.active]
         return lst if len(lst) > 0 else None
+
+    def set(self): ...
 
     def draw(self):
         for answer in self.answers:
