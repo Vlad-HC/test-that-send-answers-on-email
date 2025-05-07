@@ -1,9 +1,10 @@
 import pygame as pg
 from pygame import Rect, Surface
+from modules.UIElement import UIElement
 import string
 
 
-class Inputbox:
+class Inputbox(UIElement):
     cursor_pos: int
 
     def __init__(
@@ -20,8 +21,6 @@ class Inputbox:
         super().__init__()
         self.root = surface
         self.rect = rect
-        self.x = self.rect.x
-        self.y = self.rect.y
         self.width = self.rect.width
         self.height = self.rect.height
         self.active_box_color = active_box_color
@@ -50,7 +49,7 @@ class Inputbox:
 
         text_surface = self.FONT.render(self.get_display_text(), True, text_color)
         text_rect = text_surface.get_rect(
-            center=(self.x + self.width // 2, self.y + self.height // 2)
+            center=(self.rect.x + self.width // 2, self.rect.y + self.height // 2)
         )
 
         if self.width < text_rect.width + 20:
@@ -58,7 +57,7 @@ class Inputbox:
             self.rect.x = text_rect.x - 10
         else:
             self.rect.width = self.width
-            self.rect.x = self.x
+            self.rect.x = self.rect.x
 
         self.root.blit(text_surface, text_rect)
 
@@ -101,7 +100,7 @@ class Inputbox:
             if event.key == pg.K_BACKSPACE and (pg.key.get_mods() & pg.KMOD_CTRL):
                 if len(self.text) != 0:
                     words = str.split(self.text, " ")
-                    self.cursor_pos -= len(words.pop()) +( len(words) != 0)
+                    self.cursor_pos -= len(words.pop()) + (len(words) != 0)
                     self.text = " ".join(words)
 
             # BACKSPACE

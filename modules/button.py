@@ -16,8 +16,6 @@ class Button(UIElement):
     ):
         super().__init__()
         self.rect = rect
-        self.x = self.rect.x
-        self.y = self.rect.y
         self.width = self.rect.size[0]
         self.height = self.rect.size[1]
         self.root = surface
@@ -39,7 +37,7 @@ class Button(UIElement):
 
         text_surface = self.FONT.render(self.text, True, (0, 0, 0))
         text_rect = text_surface.get_rect(
-            center=(self.x + self.width // 2, self.y + self.height // 2)
+            center=(self.rect.x + self.width // 2, self.rect.y + self.height // 2)
         )
         self.root.blit(text_surface, text_rect)
 

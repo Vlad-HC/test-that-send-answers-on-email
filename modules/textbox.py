@@ -1,5 +1,4 @@
 import pygame as pg
-from pygame import Rect, Surface
 from modules.UIElement import UIElement
 
 
@@ -9,7 +8,7 @@ class Textbox(UIElement):
         root: pg.Surface,
         text: str,
         pos: tuple[int, int],
-        max_width: int,
+        max_width: int = None,
         font_size: int = 20,
         font_color: tuple[int, int, int] = (0, 0, 0),
         backgroud_color: tuple[int, int, int] = None,
@@ -23,14 +22,18 @@ class Textbox(UIElement):
         self.text = text
         self.border_r = border_r
         self.font_color = font_color
-        self.max_width = max_width
         self.text_padding = text_padding
         self.background_color = backgroud_color
         self.font_size = font_size
         self.FONT = pg.font.SysFont("comicsans", self.font_size)
+        self.max_width = max_width
         self.text_r = self.FONT.render(text, True, self.font_color)
         self.rect = self.text_r.get_rect()
-        self.rect.width = self.max_width + self.text_padding
+        if self.max_width != None:
+            self.rect.width = self.max_width + self.text_padding
+        else:
+            self.rect.width += self.text_padding
+            self.max_width = self.rect.width
         self.rect.height += self.text_padding
         self.rect.x = pos[0]
         self.rect.y = pos[1]

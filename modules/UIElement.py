@@ -9,6 +9,8 @@ class UIElement:
         self.hovered = False
         self.clicked = False
         self.pressed = False
+        self.scrollable = True
+        self.z_index = 1
         UIElement.add(self)
 
     def is_clicked(self, event, rect: pg.Rect):
@@ -38,6 +40,9 @@ class UIElement:
 
     def draw(self):
         pass
+
+    @classmethod
+    def sort_by_z_index(cls): ...
 
     @classmethod
     def draw_ui(cls):

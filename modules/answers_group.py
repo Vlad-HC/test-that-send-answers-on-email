@@ -16,6 +16,7 @@ class Answers_group(UIElement):
         multiple_answers: bool = False,
     ):
         super().__init__()
+        self.scrollable = False
         self.root = root
         self.multiple_answers = multiple_answers
         self.gap = gap
@@ -67,7 +68,14 @@ class Answers_group(UIElement):
         lst = [i.textbox.text for i in self.answers if i.active]
         return lst if len(lst) > 0 else None
 
-    def set(self): ...
+    def set_previous(self, prev_ans: list[str]):
+        if prev_ans == None:
+            return
+        else:
+            for prev_ans_str in prev_ans:
+                for answer in self.answers:
+                    if prev_ans_str == answer.textbox.text:
+                        answer.active = True
 
     def draw(self):
         for answer in self.answers:

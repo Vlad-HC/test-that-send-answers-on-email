@@ -22,7 +22,7 @@ class Test_handler:
     #     if self.answers[self.questions[self.ind]][0] != None:
 
     def save_answer(self, answer: str, time: int):
-        # setaty active dla answera shob ne perezapysuwalos krywo
+        # setaty active dla answera shob ne perezapysuwalos krywoa
         question = self.questions[self.ind]
         if self.answers[f"{question}"][1] != 0 and self.answers[f"{question}"][1] != None:
             self.answers[f"{question}"] = [
@@ -36,13 +36,8 @@ class Test_handler:
             print(f"{i} : {self.answers[i]}")
 
     def parse_time(self, time: int):
-        miliseconds = list(str(time))
-        seconds = []
-        while len(miliseconds) != 3:
-            seconds.append(miliseconds.pop(0))
-        if len(seconds) != 0:
-            parsed_time = f'{"".join(seconds)}s {"".join(miliseconds)}ms'
-        else:
-            parsed_time = f'0s {"".join(miliseconds)}ms'
+        return f"{time / 1000} s"
 
-        return parsed_time
+    def get_previous_answer(self) -> list[str]:
+        prev_answer = self.answers[self.questions[self.ind]][0]
+        return prev_answer

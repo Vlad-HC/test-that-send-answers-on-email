@@ -2,7 +2,7 @@
   "questions": [
     {
       "question": "What is the capital of France?",
-      "options": ["Berlin", "Madrid", "Paris", "Rome"]
+      "options": ["Berlin", "Madrid", "Paris", "Rome", "Madrid", "Paris", "Rome"]
     },
     {
       "question": "What is the capital of Germany?",
@@ -17,7 +17,7 @@
       "options": ["Berlin", "Madrid", "Paris", "Rome"]
     },
     {
-      "question": "Name country that starts with letter 'A':",
+      "question": "Name country that starts with letter 'A'",
       "options": null
     }
   ]

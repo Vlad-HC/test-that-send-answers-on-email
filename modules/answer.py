@@ -20,6 +20,7 @@ class Answer(UIElement):
     ):
         super().__init__()
         self.root = root
+        self.scrollable = False
         self.background_color = hover_green
         self.answer_str = answer_str
         self.pos = pos
