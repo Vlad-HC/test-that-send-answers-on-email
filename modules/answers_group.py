@@ -75,6 +75,7 @@ class Answers_group(UIElement):
             for prev_ans_str in prev_ans:
                 for answer in self.answers:
                     if prev_ans_str == answer.textbox.text:
+                        self.last_active_answer = answer
                         answer.active = True
 
     def draw(self):
