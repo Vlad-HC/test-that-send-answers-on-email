@@ -8,7 +8,6 @@ class Test_handler:
         self.answers = {}
         self.questions, self.options = load()
         self.generate_ans()
-        # self.answers = [ question:answer:time ]
         self.spended_time = 0
         self.unfocused_window_count = 0
 
@@ -16,13 +15,7 @@ class Test_handler:
         for i in self.questions:
             self.answers[f"{i}"] = [None, None]
 
-    # def set_previous_answer(self, answer_ui):
-    #     if self.options[self.ind] == None:
-
-    #     if self.answers[self.questions[self.ind]][0] != None:
-
     def save_answer(self, answer: str, time: int):
-        # setaty active dla answera shob ne perezapysuwalos krywoa
         question = self.questions[self.ind]
         if self.answers[f"{question}"][1] != 0 and self.answers[f"{question}"][1] != None:
             self.answers[f"{question}"] = [

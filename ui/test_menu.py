@@ -73,7 +73,7 @@ def draw_test_menu(
         font_color=white,
         backgroud_color=clicked_green,
     )
-    # >>> need to set active to answer if for this question answer exist
+    
     if answers != None:
         UIElement.remove(answer_input)
         UIElement.add(answer_group)
